@@ -33,7 +33,7 @@ def test_background(path):
     returns: img as numpy array without background
     '''
     img = cv2.imread(path, -1)
-    new_img = back-img
+    new_img = img-back
     new_img = new_img.astype('uint16')
     cv2.imwrite('test.tif',new_img)
     return new_img

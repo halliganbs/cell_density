@@ -9,9 +9,9 @@ from skimage import measure, color, io
 import tifffile
 from PIL import Image
 
-img = cv2.imread("test.tif")
+img = cv2.imread("test.tif", -1)
 print(img.shape)
-cells=img[:, :,0]
+cells=img[:, :]
 
 # threshold image to binary using OTSU, threshold set to 255
 ret1, thresh = cv2.threshold(cells, 0, 255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
@@ -26,7 +26,7 @@ sure_bg = cv2.dilate(opening, kernel, iterations=10)
 
 dist_transfrom = cv2.distanceTransform(opening, cv2.DIST_L2,5)
 
-ret2, sure_fg = cv2.threshold(dist_transfrom, 0.5*dist_transfrom.max(), 255,0)
+ret2, sure_fg = cv2.threshold(dist_transfrom, 0.3*dist_transfrom.max(), 255,0)
 
 sure_fg = np.uint8(sure_fg)
 unknown = cv2.subtract(sure_bg, sure_fg)

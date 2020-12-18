@@ -4,6 +4,10 @@ import re # REEEEE
 import cv2
 from progress.bar import Bar
 import tifffile as tiff
+from PIL import Image
+
+# TODO:
+# sckimage background removal
 
 PATH = 'data/INS1_BF/*/*.tiff'
 data = glob.glob(PATH)
@@ -15,7 +19,8 @@ whole = np.zeros(shape)
 bar = Bar('Merging Backgrounds', max=len(data))
 for file in data:
     # print(file)
-    img = tiff.imread(file) # read in grayscale uint16
+    img = Image.open(file) # read in grayscale uint16
+    img = np.array(img)
     whole += img
     img = None
     bar.next()
@@ -23,9 +28,10 @@ bar.finish()
 
 whole = whole/size
 whole = np.rint(whole)
-whole = whole.astype('uint32')
+# whole = whole.astype('uint16')
 print(whole)
 print(whole.shape)
 print(whole.dtype)
 
-tiff.imwrite('out/backgrounds/background.tif', whole)
+whole = Image.fromarray(whole)
+whole.save('out/backgrounds/background.tif')
