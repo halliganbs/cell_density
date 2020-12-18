@@ -130,6 +130,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
 # Image data files
 *.tiff
+*.tif
