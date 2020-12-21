@@ -9,7 +9,7 @@ from skimage import measure, color, io
 import tifffile
 from PIL import Image
 
-img = cv2.imread("test.tif", -1)
+img = cv2.imread("temp.tiff")
 print(img.shape)
 cells=img[:, :]
 
