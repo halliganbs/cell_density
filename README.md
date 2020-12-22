@@ -21,3 +21,9 @@ Prediction of cell density for the INS1_BF dataset
 - Backgroun Subtraction
     - https://scikit-image.org/docs/dev/auto_examples/color_exposure/plot_regional_maxima.html
     - https://flothesof.github.io/removing-background-scikit-image.html
+
+## TODO:
+
+1. Seperated 2000x2000 images into 200x200
+2. Store data and meta data on NAS
+3. Rerun `validate.py` with smaller images to generate density maps
