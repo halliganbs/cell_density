@@ -24,6 +24,10 @@ Prediction of cell density for the INS1_BF dataset
 
 ## TODO:
 
-1. Seperated 2000x2000 images into 200x200
-2. Store data and meta data on NAS
-3. Rerun `validate.py` with smaller images to generate density maps
+1. ~~Seperated~~ Sub-sample 2000x2000 images into ~~200x200~~ 256x256 ✓
+2. Apply either Sobel or Roberts filter, from `skimage.filters`
+1. Feed filtered images using `validate.py` to get resulting dense maps
+1. Get some form of prediction going to create a dense map similar to the `cell` data
+2. Create list of options to increase predictions on `INS1_BF` data
+3. Store data and meta data on NAS
+4. ~~Rerun `validate.py` with smaller images to generate density maps~~ ✓
