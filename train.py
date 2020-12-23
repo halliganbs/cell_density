@@ -26,7 +26,6 @@ def train():
     dataset = {}
     dataloader = {}
 
-    # TODO: dataloader stuff
     dataset_path = 'data/cell/'
 
     for m in ['train', 'valid']:
@@ -37,6 +36,7 @@ def train():
         dataloader[m] = torch.utils.data.DataLoader(dataset[m],
                                     batch_size=batch_size)
 
+    print('dataset made')
     input_channels = 1
     
     # model TODO: get the sizes
@@ -44,6 +44,8 @@ def train():
         input_filters=input_channels, filters=unet_filters, N=n
     ).to(device)
     model = torch.nn.DataParallel(model)
+
+    print('Model Made')
 
     # loss and optimizer
     loss = torch.nn.MSELoss()
@@ -53,6 +55,8 @@ def train():
                                 weight_decay=1e-5)
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.1)
 
+    print('Loss and Optimizer')
+
     # plot if flag is to plot
     if plot:
         plt.ion()
@@ -60,6 +64,7 @@ def train():
     else:
         plots = [None]*2
 
+    print('Plot setup')
 
     # train and validate loopers for each epoch
     train_looper = Looper(model, device, loss, optimizer, 
@@ -68,8 +73,10 @@ def train():
 
     valid_looper = Looper(model, device, loss, optimizer, 
                             dataloader['valid'], len(dataset['valid']), 
-                            plots[0])
+                            plots[0], validation=True)
 
+    print('Loopers')
+    
     # current best results (lowest mean absolute error on validation set)
     current_best = np.infty
 

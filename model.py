@@ -59,6 +59,10 @@ class ConvUp(nn.Module):
             to_conv: input passed to conv block than upsampled
             to_cat: input concatenated with the output of a conv block
         """
+        print('In forward step')
+        print(f'to_conv shape: {to_conv.shape}')
+        print(f'to_cat shape: {to_cat.shape}')
+        print(f'self.conv(to_conv) shape: {self.conv(to_conv).shape}')
 
         return torch.cat([self.conv(to_conv), to_cat], dim=1)
 

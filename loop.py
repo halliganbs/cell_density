@@ -65,6 +65,15 @@ class Looper():
 
             result = self.model(image)
 
+            # calculate loss and update running loss
+            loss = self.loss(result, label)
+            self.running_loss[-1] += image.shape[0] * loss.item() / self.size
+
+            # update weights if in train mode
+            if not self.validation:
+                loss.backward()
+                self.optimizer.step()
+
             # loop over batch samples
             for true, predicted in zip(label, result):
                 # integrate a density map to get no. of objects

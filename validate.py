@@ -5,6 +5,7 @@ import click # later if you're good
 import torch
 import torch.nn as nn
 import numpy as np
+import tifffile
 import matplotlib.pyplot as plt
 from progress.bar import Bar
 
@@ -24,6 +25,7 @@ def validate():
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     
     weights = torch.load(path)
+    out = None
     with torch.no_grad():
 
         model = UNet(input_filters=1,filters=64,N=2)
@@ -42,18 +44,22 @@ def validate():
         # set to evaluate mode 
         model.eval()
 
-        dataset = INS1Dataset('data/INS1_BF/2000/3765_A17_T0001F001L01A01Z01C01.tiff')
+        # data/splits/2000/3765_A17_T0001F001L01A01Z01C01_0_0.tiff
+        dataset = INS1Dataset('sub.tiff')
         loader = torch.utils.data.DataLoader(dataset, batch_size=1)
         bar = Bar('Finding cells...',max=len(loader))
         for  image in loader:
             image = image.to(device)
             result = model(image.float())
+            out = result
             torch.cuda.empty_cache()
             bar.next()
         bar.finish()
 
-
-    return True
+        print(out.shape)
+    out = out.cpu()
+    return out.numpy()[0,0,:,:]
 
 if __name__=='__main__':
-    validate()
+    new = validate()
+    tifffile.imsave('out.tiff', new)

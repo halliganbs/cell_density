@@ -12,7 +12,7 @@ from progress.bar import Bar
 from torch.utils.data import DataLoader, Dataset
 
 def get_images(files):
-    data = np.zeros((len(files), 1, 2000, 2000))
+    data = np.zeros((len(files), 1, 256, 256))
     # sanity check during reading files
     bar = Bar('Loading INS1_BF dataset', max=len(files))
     for i, f in enumerate(files):
