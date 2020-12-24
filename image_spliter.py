@@ -5,6 +5,7 @@ import re # REEEEE
 
 import numpy as np
 from skimage.util.shape import view_as_blocks
+from skimage import filters
 from progress.bar import Bar
 
 path = 'data/INS1_BF/*/*.tiff'
@@ -68,6 +69,14 @@ def get_images(path, c,h,w):
     bar.finish()
     return images
 
-if __name__=='__main__':
-    files = get_images(path, 1, 2000, 2000)
-    split_images(files, 250,250)
+def filter(img, filter):
+    if (filter == 'sobel'):
+        # do something
+        img = filters.sobel(img)
+    elif(filter == 'roberts'):
+        # something else
+        img = filters.roberts(img)
+    else:
+        print('UNKNOWN FILTER TYPE')
+    
+    return img

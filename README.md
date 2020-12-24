@@ -21,6 +21,8 @@ Prediction of cell density for the INS1_BF dataset
 - Backgroun Subtraction
     - https://scikit-image.org/docs/dev/auto_examples/color_exposure/plot_regional_maxima.html
     - https://flothesof.github.io/removing-background-scikit-image.html
+- Canny Image filter
+    - https://scikit-image.org/docs/0.5/auto_examples/plot_canny.html
 
 ## TODO:
 
