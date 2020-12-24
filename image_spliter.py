@@ -8,7 +8,7 @@ from skimage.util.shape import view_as_blocks
 from progress.bar import Bar
 
 path = 'data/INS1_BF/*/*.tiff'
-pattern = '(\/[0-9]*\/3765_[A-Z][0-9]{2}_T0001F001L01A01Z01C01)'
+pattern = r'(\/[0-9]*\/3765_[A-Z][0-9]{2}_T0001F001L01A01Z01C01)'
 
 def get_images(path):
     return glob.glob(path)
