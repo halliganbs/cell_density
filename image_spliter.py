@@ -70,6 +70,14 @@ def get_images(path, c,h,w):
     return images
 
 def filter(img, filter):
+    """
+    applys either a sobel or roberts fitler to image
+    args:
+        img - numpy array of image
+        filter - str filter type
+    returns:
+        filtered image
+    """
     if (filter == 'sobel'):
         # do something
         img = filters.sobel(img)
@@ -78,5 +86,4 @@ def filter(img, filter):
         img = filters.roberts(img)
     else:
         print('UNKNOWN FILTER TYPE')
-    
     return img
