@@ -50,7 +50,7 @@ def sub_sample(img, size):
     TODO:
         make it randomly select area instead of top left corner
     """
-    sub = img[:size,:size]
+    sub = img[0,:size,:size]
     return sub
 
 def get_images(path, c,h,w):
@@ -61,7 +61,7 @@ def get_images(path, c,h,w):
         c,h,w - color channel, height, width
     """
     files = glob.glob(path)
-    images = np.zeros(len(files), c, h, w)
+    images = np.zeros((len(files), c, h, w))
     bar=Bar('Loading Images', max=len(files))
     for i, f in enumerate(files):
         images[i,0]=tifffile.imread(f)
@@ -69,7 +69,7 @@ def get_images(path, c,h,w):
     bar.finish()
     return images
 
-def filter(img, filter):
+def filter_img(img, filter):
     """
     applys either a sobel or roberts fitler to image
     args:
@@ -87,3 +87,6 @@ def filter(img, filter):
     else:
         print('UNKNOWN FILTER TYPE')
     return img
+
+def blurr(img):
+    return filters.gaussian(img)
